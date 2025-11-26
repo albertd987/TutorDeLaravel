@@ -15,5 +15,10 @@ class Ciudad extends Model
 
     /*$fillable fa que els camps que s'especifiquen si que puguin ser assignats de forma massiva amb el create o update pel seeder, 
     sinò donarà error. És una llista blanca */
-    protected $fillable = ['nombre', 'pais', 'poblacion'];
+    protected $fillable = ['nombre', 'pais_id', 'poblacion'];
+
+    public function pais(){
+        return $this->belongsTo(Pais::class, 'pais_id');
+    }
+
 }

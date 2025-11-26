@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ciudades', function (Blueprint $table) {
+        Schema::create('pais', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-
-            $table->foreignId('pais_id') //type BIGINT UNSIGNED
-                ->constrained('pais') //taula a la que fa referència
-                ->onDelete('cascade');
-
-            $table->integer('poblacion')->nullable();
+            $table->string('codigo', 3)->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ciudades');
+        Schema::dropIfExists('pais');
     }
 };

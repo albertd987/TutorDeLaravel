@@ -65,7 +65,6 @@
 
         <!--Cross-Site Request Forgery Protection. Laravel rebutja formularis sense aquest token-->
         @csrf
-
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
@@ -81,7 +80,7 @@
                 <span class="error">{{ $message }}</span>
             @enderror
         </div>
-
+        
         <div class="form-group">
             <label for="poblacion">Población:</label>
             <input type="text" id="poblacion" name="poblacion" value="{{ old('poblacion') }}" min="0">
