@@ -36,8 +36,9 @@ class EmpresaController extends Controller
     public function eliminarEmpleat($id){
         $empleat=EmpleatModel::findOrFail($id);
         $empleat->delete();
-        
-        return redirect()->route('/empleats')->with('success','Empleat eliminat correctament');
+
+        return redirect('/empleats')->with('success','Empleat eliminat correctament');
 
     }
 }
+
