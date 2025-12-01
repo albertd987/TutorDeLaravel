@@ -25,7 +25,8 @@ class CiudadController extends Controller
 
     public function create()
     {
-        return view('ciudades.create');
+        $paises= \App\Models\Pais::all();
+        return view('ciudades.create',['paises'=>$paises]);
     }
 
     public function store(Request $request)
@@ -34,14 +35,14 @@ class CiudadController extends Controller
         //validar dades
         $request->validate([
             'nombre' => 'required|max:255',
-            'pais' => 'required|max:255',
+            'pais_id' => 'required|exists:pais,id',
             'poblacion' => 'nullable|integer|min:0'
         ]);
 
         //crear la ciutat
         Ciudad::create([
             'nombre' => $request->nombre,
-            'pais' => $request->pais,
+            'pais_id' => $request->pais_id,
             'poblacion' => $request->poblacion
         ]);
 
@@ -52,8 +53,10 @@ class CiudadController extends Controller
     public function edit($id)
     {
         $ciudad = Ciudad::findOrFail($id);
+        $paises=\App\Models\Pais::all();
         return view('ciudades.edit', [
-            'ciudad' => $ciudad
+            'ciudad' => $ciudad,
+            'paises'=>$paises
         ]);
     }
 
@@ -62,13 +65,13 @@ class CiudadController extends Controller
 
         $request->validate([
             'nombre' => 'required|max:255',
-            'pais' => 'required|max:255',
+            'pais_id' => 'required|exists:pais,id',
             'poblacion' => 'nullable|integer|min:0'
         ]);
         $ciudad = Ciudad::findOrFail($id);
 
         $ciudad->nombre = $request->nombre;
-        $ciudad->pais = $request->pais;
+        $ciudad->pais_id = $request->pais_id;
         $ciudad->poblacion = $request->poblacion;
         $ciudad->save();
 

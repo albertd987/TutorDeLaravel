@@ -1,54 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<style>
-    body{
-        font-family:Arial, sans-serif;
-        max-width: 600px;
-        margin: 50px auto;
-        padding: 20px;
-    }
-    .form-group{
-        margin-bottom:15 px;
-    }
-    label{
-        display:block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    input{
-        width:100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius:4px;
-    }
-    button{
-        background-color: #4CAF50;
-        color:white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    button:hover{
-        background-color: #45a049;
-    }
-    .error{
-        color:red;
-        font-size:14px;
-    }
-    .back-link{
-        display: inline-block;
-        margin-top: 20px;
-        color: #4CAF50;
-    }
-</style>
-<body>
+@extends('layouts.app')
+@section('title','Crear Ciudad')
+@section('content')
+
     <h1>Crear nueva ciudad</h1>
     @if ($errors->any())
         <div style="background: #ffdddd; padding: 10px; margin-bottom: 20px; border-radius:4px;">
@@ -74,9 +27,17 @@
         </div>
 
         <div class="form-group">
-            <label for="pais">Pais:</label>
-            <input type="text" id="pais" name="pais" value="{{ old('pais') }}" required>
-            @error('pais')
+            <label for="pais_id">Pais:</label>
+            <select name="pais_id" id="pais_id" required>
+                <option value="">Selecciona un pais</option>
+                @foreach ( $paises as $pais )
+                    <option value="{{ $pais->id }}"
+                        {{ old('pais_id', $ciudad->pais_id ?? '')==$pais->id ? 'selected' : '' }}>
+                        {{ $pais->nombre }}
+                    </option>
+                @endforeach
+            </select>
+            @error('pais_id')
                 <span class="error">{{ $message }}</span>
             @enderror
         </div>
@@ -92,5 +53,4 @@
     </form>
 
     <a href="/ciudades" class="back-link"><- Volver a la lista</a>
-</body>
-</html>
+@endsection
